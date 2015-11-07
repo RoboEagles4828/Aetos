@@ -8,10 +8,16 @@ public class Arm {
 	CanTalonSRX lift;
 	Talon flip;
 	
-	private final double liftUpSpeed = 1;
-	private final double liftDownSpeed = 0.8;
-	private final double flipUpSpeed = 0.4;
-	private final double flipDownSpeed = 0.3;
+	public enum LiftDirection{
+		UP, DOWN, HOLD;
+	}
+	
+	private static final double liftUpSpeed = 1;
+	private static final double slowerLiftUpSpeed = 0.3;
+	private static final double liftDownSpeed = -0.85;
+	private static final double slowerLiftDownSpeed = -0.25;
+	private static final double flipUpSpeed = 0.45;
+	private static final double flipDownSpeed = -0.25;
 	
 	public Arm(int solenoidOpen, int solenoidClose, int liftPort, int flipPort) {
 		piston = new PneumaticPiston(solenoidOpen, solenoidClose);
@@ -23,8 +29,16 @@ public class Arm {
 		lift.Set(liftUpSpeed);
 	}
 	
+	public void liftSlower(){
+		lift.Set(slowerLiftUpSpeed);
+	}
+	
 	public void lower(){
 		lift.Set(liftDownSpeed);
+	}
+	
+	public void lowerSlower(){
+		lift.Set(slowerLiftDownSpeed);
 	}
 	
 	public void stopLift(){
@@ -32,15 +46,15 @@ public class Arm {
 	}
 	
 	public void flipUp(){
-		lift.Set(flipUpSpeed);
+		flip.set(flipUpSpeed);
 	}
 	
 	public void flipDown(){
-		lift.Set(flipDownSpeed);
+		flip.set(flipDownSpeed);
 	}
 
 	public void stopFlip(){
-		lift.Set(0);
+		flip.set(0);
 	}
 	
 	public void open(){

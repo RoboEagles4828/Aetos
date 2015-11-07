@@ -14,17 +14,21 @@ public class DIManager {
 	
 	public static final DIManager INSTANCE = new DIManager();
 	
-	public void add(String name, int port){
-		limits.put(name, new DigitalInput(port));
+	public void add(String key, int port){
+		limits.put(key, new DigitalInput(port));
 	}
-	
-	public boolean get(String name){
-		DigitalInput result = limits.get(name);
+
+	public boolean get(String key){
+		DigitalInput result = limits.get(key);
 		if(result != null)
-			return limits.get(name).get();
+			return result.get();
 		else {
-			System.out.println("ERROR: LIMITMANAGER - NAME NOT FOUND IN MAP " + name);
+			System.out.println("ERROR: LIMITMANAGER - KEY NOT FOUND IN MAP " + key);
 			return true;
 		}
+	}
+	
+	public String getDebugString(){
+		return limits.toString();
 	}
 }

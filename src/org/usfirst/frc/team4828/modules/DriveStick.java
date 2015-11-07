@@ -37,4 +37,11 @@ public class DriveStick {
 		return stick.getTwist();
 	}
 
+	public double getX() {
+		return stick.getX();
+	}
+	
+	public double getY(){
+		return stick.getY();
+	}
 }
